@@ -36,7 +36,7 @@ namespace ME.ECS.GlobalEvents {
             } else if (globalEventType == GlobalEventType.Logic) {
 
                 ref var allocator = ref world.GetState().allocator;
-                ref var storage = ref world.GetNoStateData().pluginsStorage.Get<ME.ECS.GlobalEvents.GlobalEventStorage>(ref allocator, ME.ECS.GlobalEvents.GlobalEventStorage.key);
+                ref var storage = ref world.GetState().pluginsStorage.Get<ME.ECS.GlobalEvents.GlobalEventStorage>(ref allocator, ME.ECS.GlobalEvents.GlobalEventStorage.key);
                 for (int i = 0; i < storage.globalEventLogicItems.Count; ++i) {
 
                     var item = storage.globalEventLogicItems[in allocator, i];
@@ -78,7 +78,7 @@ namespace ME.ECS.GlobalEvents {
             } else if (globalEventType == GlobalEventType.Logic) {
 
                 ref var allocator = ref world.GetState().allocator;
-                ref var storage = ref world.GetNoStateData().pluginsStorage.Get<ME.ECS.GlobalEvents.GlobalEventStorage>(ref allocator, ME.ECS.GlobalEvents.GlobalEventStorage.key);
+                ref var storage = ref world.GetState().pluginsStorage.Get<ME.ECS.GlobalEvents.GlobalEventStorage>(ref allocator, ME.ECS.GlobalEvents.GlobalEventStorage.key);
                 storage.Remove(ref allocator, globalEvent, in entity);
                 
             }
@@ -128,6 +128,8 @@ namespace ME.ECS.GlobalEvents {
 
         public static int key;
         
+        public int GetKey() => WorldStorage.key;
+
         #region GlobalEvents
         internal List<GlobalEventStorage.GlobalEventFrameItem> globalEventFrameItems;
         internal HashSet<long> globalEventFrameEvents;

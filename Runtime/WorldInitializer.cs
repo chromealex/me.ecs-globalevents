@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace ME.ECS.GlobalEvents {
 
+    #if UNITY_EDITOR
+    [UnityEditor.InitializeOnLoadAttribute]
+    #endif
     public static class WorldInitializer {
 
         public static DisposeStatic disposeStatic = new DisposeStatic();
@@ -12,18 +15,27 @@ namespace ME.ECS.GlobalEvents {
             
             WorldStaticCallbacks.RegisterCallbacks(InitWorld, DisposeWorld);
             WorldStaticCallbacks.RegisterCallbacks(OnWorldStep);
+            WorldStaticCallbacks.RegisterCallbacks(InitResetState);
             
         }
 
         public class DisposeStatic {
             ~DisposeStatic() {
                 WorldStaticCallbacks.UnRegisterCallbacks(InitWorld, DisposeWorld);
+                WorldStaticCallbacks.UnRegisterCallbacks(OnWorldStep);
+                WorldStaticCallbacks.UnRegisterCallbacks(InitResetState);
             }
+        }
+
+        public static void InitResetState(State state) {
+
+            state.pluginsStorage.GetOrCreate<GlobalEventStorage>(ref state.allocator);
+
         }
 
         public static void InitWorld(World world) {
 
-            world.GetNoStateData().pluginsStorage.Add(ref world.GetNoStateData().allocator, new WorldStorage());
+            world.GetNoStateData().pluginsStorage.GetOrCreate<WorldStorage>(ref world.GetNoStateData().allocator);
 
         }
         

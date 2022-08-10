@@ -7,6 +7,8 @@ namespace ME.ECS.GlobalEvents {
     public struct GlobalEventStorage : IPlugin {
 
         public static int key;
+
+        public int GetKey() => GlobalEventStorage.key;
         
         public struct GlobalEventFrameItem {
 
@@ -20,7 +22,7 @@ namespace ME.ECS.GlobalEvents {
 
         public void Initialize(int key, ref MemoryAllocator allocator) {
 
-            GlobalEventStorage.key = GlobalEventStorage.key;
+            GlobalEventStorage.key = key;
             
             if (this.globalEventLogicItems.isCreated == false) this.globalEventLogicItems = new List<GlobalEventFrameItem>(ref allocator, 10);
             if (this.globalEventLogicEvents.isCreated == false) this.globalEventLogicEvents = new HashSet<long>(ref allocator, 10);
