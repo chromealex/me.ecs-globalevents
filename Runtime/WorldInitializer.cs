@@ -43,9 +43,17 @@ namespace ME.ECS.GlobalEvents {
             
         }
 
-        public static void OnWorldStep(World world, WorldStep step) {
+        public static void OnWorldStep(World world, WorldCallbackStep step) {
+
+            if (step == WorldCallbackStep.LogicTick) {
+
+                world.ProcessGlobalEvents(GlobalEventType.Logic);
+
+            } else if (step == WorldCallbackStep.VisualTick) {
             
-            world.ProcessGlobalEvents(step == WorldStep.VisualTick ? GlobalEventType.Visual : GlobalEventType.Logic);
+                world.ProcessGlobalEvents(GlobalEventType.Visual);
+
+            }
             
         }
 
