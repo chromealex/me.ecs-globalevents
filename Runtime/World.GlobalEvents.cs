@@ -1,3 +1,5 @@
+using ME.ECS.Collections.MemoryAllocator;
+
 namespace ME.ECS.GlobalEvents {
 
     public enum GlobalEventType : byte {
