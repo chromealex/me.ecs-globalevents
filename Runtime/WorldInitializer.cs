@@ -39,6 +39,8 @@ namespace ME.ECS.GlobalEvents {
                 WorldStaticCallbacks.UnRegisterCallbacks(InitWorld, DisposeWorld);
                 WorldStaticCallbacks.UnRegisterCallbacks(OnWorldStep);
                 WorldStaticCallbacks.UnRegisterCallbacks(InitResetState);
+                
+                WorldInitializer.initialized = false;
             }
         }
 
