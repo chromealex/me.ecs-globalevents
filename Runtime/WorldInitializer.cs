@@ -11,11 +11,26 @@ namespace ME.ECS.GlobalEvents {
 
         public static DisposeStatic disposeStatic = new DisposeStatic();
         
-        static WorldInitializer() {
+        private static bool initialized = false;
+        
+        #if UNITY_EDITOR
+        [UnityEditor.InitializeOnLoad]
+        private static class EditorInitializer {
+            static EditorInitializer() => WorldInitializer.Initialize();
+        }
+        #endif
+
+        [UnityEngine.RuntimeInitializeOnLoadMethodAttribute(UnityEngine.RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void Initialize() {
             
-            WorldStaticCallbacks.RegisterCallbacks(InitWorld, DisposeWorld);
-            WorldStaticCallbacks.RegisterCallbacks(OnWorldStep);
-            WorldStaticCallbacks.RegisterCallbacks(InitResetState);
+            if (WorldInitializer.initialized == false) {
+                
+                WorldStaticCallbacks.RegisterCallbacks(InitWorld, DisposeWorld);
+                WorldStaticCallbacks.RegisterCallbacks(OnWorldStep);
+                WorldStaticCallbacks.RegisterCallbacks(InitResetState);
+
+                WorldInitializer.initialized = true;
+            }
             
         }
 
