@@ -1,8 +1,8 @@
 namespace ME.ECS.GlobalEvents {
     
     using MemPtr = System.Int64;
-    using Collections.MemoryAllocator;
-    using ME.ECS.Collections.V3;
+    using Collections.LowLevel;
+    using ME.ECS.Collections.LowLevel.Unsafe;
 
     public struct GlobalEventStorage : IPlugin {
 

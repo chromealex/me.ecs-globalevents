@@ -1,4 +1,4 @@
-using ME.ECS.Collections.MemoryAllocator;
+using ME.ECS.Collections.LowLevel;
 
 namespace ME.ECS.GlobalEvents {
 
@@ -123,8 +123,8 @@ namespace ME.ECS.GlobalEvents {
 namespace ME.ECS.GlobalEvents {
     
     using MemPtr = System.Int64;
-    using ME.ECS.Collections.V3;
-    using ME.ECS.Collections.MemoryAllocator;
+    using ME.ECS.Collections.LowLevel.Unsafe;
+    using ME.ECS.Collections.LowLevel;
 
     public struct WorldStorage : IPlugin {
 
