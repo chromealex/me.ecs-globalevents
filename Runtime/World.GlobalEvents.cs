@@ -94,8 +94,8 @@ namespace ME.ECS.GlobalEvents {
             var key = MathUtils.GetKey(globalEvent.GetHashCode(), entity.GetHashCode());
             if (globalEventType == GlobalEventType.Visual) {
 
-                ref var allocator = ref world.noStateData.allocator;
-                ref var storage = ref world.noStateData.pluginsStorage.Get<ME.ECS.GlobalEvents.WorldStorage>(ref allocator, ME.ECS.GlobalEvents.WorldStorage.key);
+                ref var allocator = ref world.GetNoStateData().allocator;
+                ref var storage = ref world.GetNoStateData().pluginsStorage.Get<ME.ECS.GlobalEvents.WorldStorage>(ref allocator, ME.ECS.GlobalEvents.WorldStorage.key);
                 if (storage.globalEventFrameEvents.Contains(in allocator, key) == false) {
 
                     storage.globalEventFrameEvents.Add(ref allocator, key);
@@ -109,7 +109,7 @@ namespace ME.ECS.GlobalEvents {
             } else if (globalEventType == GlobalEventType.Logic) {
 
                 ref var allocator = ref world.GetState().allocator;
-                ref var storage = ref world.GetNoStateData().pluginsStorage.Get<ME.ECS.GlobalEvents.GlobalEventStorage>(ref allocator, ME.ECS.GlobalEvents.GlobalEventStorage.key);
+                ref var storage = ref world.GetState().pluginsStorage.Get<ME.ECS.GlobalEvents.GlobalEventStorage>(ref allocator, ME.ECS.GlobalEvents.GlobalEventStorage.key);
                 storage.Add(ref allocator, globalEvent, in entity);
                 
             }
